@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kalkulator wartości obornika lub resztek</title>
+    <link rel="stylesheet" href="output.css" />
+
+    <!-- fonty -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@100;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body
+    class="m-0 p-0 bg-[var(--primary)]/10 flex justify-center font-[var(--font-body)]"
+  >
+    <div
+      class="m-3 bg-white rounded-3xl container flex flex-col justify-start shadow-md shadow-[var(--secondary)]"
+    >
+      <div class="m-3 flex justify-between">
+        <div
+          class="text-2xl font-[var(--font-header)] font-bold flex justify-center items-center flex-1"
+        >
+          <p>Kalkulator wartości obornika lub resztek</p>
+        </div>
+        <div class="h-full flex items-center justify-center">
+          <button
+            id="reset"
+            class="w-24 h-12 flex items-center justify-center border-[var(--primary)] border-2 rounded-3xl text-2xl text-[var(--primary)] hover:bg-[var(--primary)]/25"
+          >
+            Resetuj
+          </button>
+        </div>
+      </div>
+      <div class="content mt-5 flex justify-around flex-wrap">
+        <div class="section">
+          <div class="section-name">Nawozy refernecyjne</div>
+          <div class="flex gap-x-2">
+            <button
+              type="button"
+              title="zaciągnij wartości z www.topagrar.pl"
+              class="border-[var(--primary)] text-[16px] text-[var(--primary)] hover:bg-[var(--primary)]/25 border-2 font-medium rounded-3xl p-1 px-2 mb-5"
+              id="fetchValues"
+            >
+              Zaciagnij wartości z www.topagrar.pl
+            </button>
+            <button
+              class="border-[var(--primary)] text-[16px] text-[var(--primary)] hover:bg-[var(--primary)]/25 border-2 font-medium rounded-3xl p-1 px-2 mb-5"
+              title="Zresetuj"
+              id="fetchValuesReset"
+            >
+              Zresetuj
+            </button>
+          </div>
+          <div>
+            <div class="mb-5">
+              <div class="mb-2 flex items-center gap-2">
+                <div class="text-lg text-left font-medium">Azot</div>
+                <input
+                  type="text"
+                  id="nazwaAzot"
+                  placeholder="nazwa środka (opcjonalnie)"
+                />
+              </div>
+              <div class="mb-2 flex">
+                <input
+                  type="text"
+                  pattern="[0-9]*"
+                  id="zawartoscAzot"
+                  placeholder="zawartość"
+                />
+                <div class="unit">%</div>
+                <input
+                  type="text"
+                  pattern="[0-9]*"
+                  id="cenaAzot"
+                  placeholder="cena"
+                />
+                <div class="unit">zł/t</div>
+              </div>
+            </div>
+            <div class="mb-5">
+              <div class="mb-2 flex items-center gap-2">
+                <div class="text-lg text-left font-medium">Fosfor</div>
+                <input
+                  type="text"
+                  id="nazwaFosfor"
+                  placeholder="nazwa środka (opcjonalnie)"
+                />
+              </div>
+              <div class="mb-2 flex">
+                <input
+                  type="text"
+                  id="zawartoscFosfor"
+                  placeholder="zawartość"
+                />
+                <div class="unit">%</div>
+                <input
+                  type="text"
+                  pattern="[0-9]*"
+                  id="cenaFosfor"
+                  placeholder="cena"
+                />
+                <div class="unit">zł/t</div>
+              </div>
+            </div>
+            <div class="mb-5">
+              <div class="mb-2 flex items-center gap-2">
+                <div class="text-lg text-left font-medium">Potas</div>
+                <input
+                  type="text"
+                  id="nazwaPotas"
+                  placeholder="nazwa środka (opcjonalnie)"
+                />
+              </div>
+              <div class="mb-2 flex">
+                <input
+                  type="text"
+                  id="zawartoscPotas"
+                  placeholder="zawartość"
+                />
+                <div class="unit">%</div>
+                <input
+                  type="text"
+                  pattern="[0-9]*"
+                  id="cenaPotas"
+                  placeholder="cena"
+                />
+                <div class="unit">zł/t</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-name">Skład produktu naturalnego</div>
+          <div class="mb-5 flex">
+            <select id="skladProduktuNaturalnego" title="wybierz">
+              <option value="" selected hidden disabled>wybierz z listy</option>
+              <option value="własny skład">wybieram własny skład nawozu</option>
+            </select>
+          </div>
+          <div class="mb-5 flex">
+            <div class="ml-2 mr-1 text-lg flex items-center">Azot:</div>
+            <input
+              type="text"
+              pattern="[0-9]*"
+              id="wlasnyAzot"
+              placeholder="podaj skład"
+            />
+            <div class="unit">% w św. m</div>
+          </div>
+          <div class="mb-5 flex">
+            <div class="ml-2 mr-1 text-lg flex items-center">Fosfor:</div>
+            <input
+              type="text"
+              pattern="[0-9]*"
+              id="wlasnyFosfor"
+              placeholder="podaj skład"
+            />
+            <div class="unit">% w św. m</div>
+          </div>
+          <div class="mb-5 flex">
+            <div class="ml-2 mr-1 text-lg flex items-center">Potas:</div>
+            <input
+              type="text"
+              pattern="[0-9]*"
+              id="wlasnyPotas"
+              placeholder="podaj skład"
+            />
+            <div class="unit">% w św. m</div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-name">Wyniki</div>
+          <div id="plonSection">
+            <div class="mb-2 text-xl flex items-center">
+              Plon ziarna/nasion/korzeni/bulw:
+            </div>
+            <div class="mb-5 flex">
+              <input
+                type="text"
+                pattern="[0-9]*"
+                id="plon"
+                placeholder="podaj plon"
+              />
+              <div class="unit">t/ha</div>
+            </div>
+          </div>
+          <div id="dawkaSection">
+            <div class="mb-2 text-xl flex items-center">Dawka nawozu:</div>
+            <div class="mb-5 flex">
+              <input
+                type="text"
+                pattern="[0-9]*"
+                id="dawkaNawozu"
+                placeholder="podaj dawkę nawozu"
+              />
+              <div class="unit">t/ha</div>
+            </div>
+          </div>
+          <div class="mb-5 flex text-xl justify-between">
+            <div>Wartość na hektar:</div>
+            <div id="result" class="text-[var(--primary)]">podaj wartości</div>
+          </div>
+          <div id="result2Section" class="mb-5 flex text-xl justify-between">
+            <div>Wartość na tonę:</div>
+            <div id="result2" class="text-[var(--primary)]">podaj wartości</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="data.js"></script>
+  <script src="fetchValues.js"></script>
+  <script src="script.js"></script>
+</html>
