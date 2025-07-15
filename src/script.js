@@ -11,17 +11,18 @@ function format(inputString) {
 }
 document.querySelectorAll("input").forEach((input) => {
   input.addEventListener("input", (event) => {
+    if (event.target.classList.contains("text")) return;
     const inputField = event.target;
     inputField.value = format(inputField.value);
   });
 });
 const visitedElements = document.querySelectorAll("input, select");
 visitedElements.forEach((input) => {
-  input.addEventListener("blur", function () {
-    if (this.value) {
-      this.classList.add("visited");
+  input.addEventListener("blur", () => {
+    if (input.value) {
+      input.classList.add("visited");
     } else {
-      this.classList.remove("visited");
+      input.classList.remove("visited");
     }
   });
 });
@@ -101,10 +102,13 @@ skladProduktuNaturalnego.addEventListener("change", () => {
   input.addEventListener("input", () => {
     skladProduktuNaturalnego.value = "własny skład";
     isObornik = true;
+    plonSection.style.display = "none";
+    dawkaSection.style.display = "block";
+    result2Section.style.display = "flex";
   });
 });
 
-function calculate() {
+function unitaryCalculator() {
   let result = 0;
   let azot =
     (wlasnyAzot.value / 0.1) * (cenaAzot.value / zawartoscAzot.value / 10);
@@ -114,6 +118,11 @@ function calculate() {
   let potas =
     (wlasnyPotas.value / 0.1) * (cenaPotas.value / zawartoscPotas.value / 10);
   result = azot + fosfor + potas;
+
+  return result;
+}
+function calculate() {
+  let result = unitaryCalculator();
 
   if (isObornik) {
     result = result * dawkaNawozu.value;
@@ -129,23 +138,41 @@ function displayResult() {
     result === "" ||
     result === null ||
     result === undefined ||
+    result === Infinity ||
     isNaN(result)
   ) {
     document.querySelector("#result").textContent = "podaj wartości";
+    return;
+  }
+
+  document.querySelector("#result").textContent =
+    result.toFixed(2).toLocaleString("pl-PL") + " zł";
+}
+function displayResult2() {
+  const result = unitaryCalculator();
+  if (
+    result === 0 ||
+    result === "" ||
+    result === null ||
+    result === undefined ||
+    result === Infinity ||
+    isNaN(result)
+  ) {
     document.querySelector("#result2").textContent = "podaj wartości";
     return;
   }
-  document.querySelector("#result").textContent =
-    result.toFixed(2).toLocaleString("pl-PL") + " zł";
   document.querySelector("#result2").textContent =
-    (result / dawkaNawozu.value).toFixed(2).toLocaleString("pl-PL") + " zł";
+    result.toFixed(2).toLocaleString("pl-PL") + " zł";
 }
 document.addEventListener("input", () => {
   displayResult();
+  displayResult2();
 });
 document.addEventListener("change", () => {
   displayResult();
+  displayResult2();
 });
 document.addEventListener("click", () => {
   displayResult();
+  displayResult2();
 });
