@@ -74,7 +74,21 @@ result2Section.style.display = "none";
 const plon = document.querySelector("#plon");
 const dawkaNawozu = document.querySelector("#dawkaNawozu");
 
+function unitChange() {
+  const units = document.querySelectorAll(".unit-to-change");
+  if (isObornik) {
+    units.forEach((unit) => {
+      unit.textContent = "% sw.m.";
+    });
+  } else {
+    units.forEach((unit) => {
+      unit.textContent = "kg/t plonu";
+    });
+  }
+}
+
 let isObornik = true;
+unitChange();
 skladProduktuNaturalnego.addEventListener("change", () => {
   if (skladProduktuNaturalnego.value !== "własny skład") {
     const option = JSON.parse(skladProduktuNaturalnego.value);
@@ -82,6 +96,7 @@ skladProduktuNaturalnego.addEventListener("change", () => {
     wlasnyFosfor.value = option.fosfor;
     wlasnyPotas.value = option.potas;
     isObornik = option.isObornik;
+    unitChange();
 
     if (isObornik) {
       plonSection.style.display = "none";
