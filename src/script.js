@@ -78,7 +78,7 @@ function unitChange() {
   const units = document.querySelectorAll(".unit-to-change");
   if (isObornik) {
     units.forEach((unit) => {
-      unit.textContent = "% sw.m.";
+      unit.textContent = "% św.m.";
     });
   } else {
     units.forEach((unit) => {
